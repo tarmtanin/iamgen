@@ -1,4 +1,4 @@
-module github.com/smallnest/gen
+module github.com/tarmtanin/iamgen
 
 go 1.16
 

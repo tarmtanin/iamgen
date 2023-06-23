@@ -8,7 +8,7 @@ import (
 	"path"
 	"time"
 
-	"github.com/smallnest/gen/utils"
+	"github.com/tarmtanin/iamgen/utils"
 
 	"go/format"
 	"io/ioutil"
