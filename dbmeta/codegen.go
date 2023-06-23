@@ -890,6 +890,7 @@ type Config struct {
 	AddGormAnnotation     bool
 	AddProtobufAnnotation bool
 	AddXMLAnnotation      bool
+	AddCustomAnnotation   bool
 	AddDBAnnotation       bool
 	UseGureguTypes        bool
 	JSONNameFormat        string
@@ -960,6 +961,7 @@ func NewConfig(templateLoader TemplateLoader) *Config {
 
 	conf.AddJSONAnnotation = true
 	conf.AddXMLAnnotation = true
+	conf.AddCustomAnnotation = true
 	conf.AddGormAnnotation = true
 	conf.AddProtobufAnnotation = true
 	conf.AddDBAnnotation = true

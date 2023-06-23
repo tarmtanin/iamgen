@@ -57,6 +57,8 @@ var (
 	addJSONAnnotation = goopt.Flag([]string{"--json"}, []string{"--no-json"}, "Add json annotations (default)", "Disable json annotations")
 	jsonNameFormat    = goopt.String([]string{"--json-fmt"}, "snake", "json name format [snake | camel | lower_camel | none]")
 
+	addCustomAnnotation = goopt.Flag([]string{"--custom-annotation"}, []string{"--no-custom-annotation"}, "Add custom annotations", "Disable custom annotations")
+
 	addXMLAnnotation = goopt.Flag([]string{"--xml"}, []string{"--no-xml"}, "Add xml annotations (default)", "Disable xml annotations")
 	xmlNameFormat    = goopt.String([]string{"--xml-fmt"}, "snake", "xml name format [snake | camel | lower_camel | none]")
 
@@ -351,6 +353,7 @@ func initialize(conf *dbmeta.Config) {
 
 	conf.AddJSONAnnotation = *addJSONAnnotation
 	conf.AddXMLAnnotation = *addXMLAnnotation
+	conf.AddCustomAnnotation = *addCustomAnnotation
 	conf.AddGormAnnotation = *addGormAnnotation
 	conf.AddProtobufAnnotation = *addProtobufAnnotation
 	conf.AddDBAnnotation = *addDBAnnotation
@@ -1000,6 +1003,9 @@ func regenCmdLine() []string {
 	if *addXMLAnnotation {
 		cmdLine = append(cmdLine, fmt.Sprintf(" --xml"))
 		cmdLine = append(cmdLine, fmt.Sprintf(" --xml-fmt=%s", *xmlNameFormat))
+	}
+	if *addCustomAnnotation {
+		cmdLine = append(cmdLine, fmt.Sprintf(" --custom-annotation"))
 	}
 	if *addGormAnnotation {
 		cmdLine = append(cmdLine, fmt.Sprintf(" --gorm"))

@@ -168,6 +168,7 @@ func initialize(conf *dbmeta.Config) {
 
 	conf.AddJSONAnnotation = true
 	conf.AddXMLAnnotation = true
+	conf.AddCustomAnnotation = true
 	conf.AddGormAnnotation = true
 	conf.AddProtobufAnnotation = true
 	conf.AddDBAnnotation = true

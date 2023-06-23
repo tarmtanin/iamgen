@@ -58,6 +58,9 @@ type SQLMapping struct {
 
 	// SwaggerType mapped type
 	SwaggerType string `json:"swagger_type"`
+
+	// CustomAnnotation mapped type
+	CustomAnnotation string `json:"custom_annotation"`
 }
 
 func (m *SQLMapping) String() interface{} {
@@ -297,6 +300,7 @@ type FieldInfo struct {
 	JSONAnnotation        string
 	XMLAnnotation         string
 	DBAnnotation          string
+	CustomAnnotation      string
 	GoGoMoreTags          string
 }
 
@@ -343,6 +347,7 @@ func (c *Config) GenerateFieldsTypes(dbMeta DbTableMeta) ([]*FieldInfo, error) {
 		fi.GormAnnotation = createGormAnnotation(col)
 		fi.JSONAnnotation = createJSONAnnotation(c.JSONNameFormat, col)
 		fi.XMLAnnotation = createXMLAnnotation(c.XMLNameFormat, col)
+		fi.CustomAnnotation = createCustomAnnotation(strings.ToLower(col.DatabaseTypeName()))
 		fi.DBAnnotation = createDBAnnotation(col)
 
 		var annotations []string
@@ -356,6 +361,10 @@ func (c *Config) GenerateFieldsTypes(dbMeta DbTableMeta) ([]*FieldInfo, error) {
 
 		if c.AddXMLAnnotation {
 			annotations = append(annotations, fi.XMLAnnotation)
+		}
+
+		if c.AddCustomAnnotation {
+			annotations = append(annotations, fi.CustomAnnotation)
 		}
 
 		if c.AddDBAnnotation {
@@ -462,6 +471,10 @@ func createXMLAnnotation(nameFormat string, c ColumnMeta) string {
 
 func createDBAnnotation(c ColumnMeta) string {
 	return fmt.Sprintf("db:\"%s\"", c.Name())
+}
+
+func createCustomAnnotation(sqlType string) string {
+	return fmt.Sprintf(sqlMappings[sqlType].CustomAnnotation)
 }
 
 func createProtobufAnnotation(nameFormat string, c ColumnMeta) (string, error) {
